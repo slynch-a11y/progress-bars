@@ -3,26 +3,26 @@
 
 <head>
   <style>
-      
-.progress {
-  background-color: #e9ecef;
-  display: flex;
-  height: 1rem;
-  overflow: hidden; // force rounded corners by cropping it
-  border-radius: 1rem;
-  margin: 1rem;
-}
+    .progress {
+      background-color: #e9ecef;
+      display: flex;
+      height: 1rem;
+      overflow: hidden;
+      border-radius: 1rem;
+      margin: 1rem;
+    }
 
-.progress-bar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-  text-align: center;
-  white-space: nowrap;
-  background-color: black;
-}
-/* 
+    .progress-bar {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      white-space: nowrap;
+      background-color: black;
+    }
+
+    /* 
 .hidden
 {position:absolute;
 left:-10000px;
@@ -30,52 +30,39 @@ top:auto;
 width:1px;
 height:1px;
 overflow:hidden;} */
-      </style>
+  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>My Site | Home</title>
+  <title>Accessible Progress Bars</title>
 
 </head>
 
 <body>
 
-        <button id="increaseButton">Increase progress by 10% on first progress bar</button>
-        <div class="progress">
-             <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><span class="hidden" role="alert" id="progressPercent"></span></div>
-         </div>
-         <div class="progress">
-             <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
-                 aria-valuemax="100"></div>
-         </div>
-         <div class="progress">
-             <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
-                 aria-valuemax="100"></div>
-         </div>
-         <div class="progress">
-             <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
-                 aria-valuemax="100"></div>
-         </div>
-         <div class="progress">
-             <div class="progress-bar" role="progressbar" style="width: 100%"  aria-valuenow="100" aria-valuemin="0"
-                 aria-valuemax="100"></div>
-         </div>
-        
-<script>
-const progressBar = document.getElementById("progress");
-const myButton = document.getElementById("increaseButton");
-myButton.addEventListener('click', function(){
-  let ariaValueNow = progressBar.getAttribute("aria-valuenow");
-  ariaValueNow = parseInt(ariaValueNow, 10);
-  ariaValueNow += 10;
-  progressBar.setAttribute("aria-valuenow", ariaValueNow)
-  let myWidth = ariaValueNow.toString();
-  let myWidthString = "width: " + myWidth + "%";
-  progressBar.setAttribute("style", myWidthString);
-  const myLabel = document.getElementById("progressPercent");
-  myLabel.innerHTML = ariaValueNow;
-})
-</script>
-    
-    </body>
-    </html>
+  <button id="increaseButton">Increase progress by 10% on first progress bar</button>
+  <div class="progress">
+    <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      <span class="hidden" aria-live="polite" id="progressPercent"></span></div>
+  </div>
+  
+
+  <script>
+    const progressBar = document.getElementById("progress");
+    const myButton = document.getElementById("increaseButton");
+    myButton.addEventListener('click', function () {
+      let ariaValueNow = progressBar.getAttribute("aria-valuenow");
+      ariaValueNow = parseInt(ariaValueNow, 10);
+      ariaValueNow += 10;
+      progressBar.setAttribute("aria-valuenow", ariaValueNow)
+      let myWidth = ariaValueNow.toString();
+      let myWidthString = "width: " + myWidth + "%";
+      progressBar.setAttribute("style", myWidthString);
+      const myLabel = document.getElementById("progressPercent");
+      myLabel.innerHTML = ariaValueNow;
+    })
+  </script>
+
+</body>
+
+</html>
