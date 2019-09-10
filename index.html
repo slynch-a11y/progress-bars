@@ -22,45 +22,45 @@
       background-color: black;
     }
 
-    /* 
-.hidden
-{position:absolute;
-left:-10000px;
-top:auto;
-width:1px;
-height:1px;
-overflow:hidden;} */
+    .hidden {
+      position: absolute;
+      left: -10000px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Accessible Progress Bars</title>
+  <title>Accessible Progress Bars Example</title>
 
 </head>
 
 <body>
 
-  <button id="increaseButton">Increase progress by 10% on first progress bar</button>
+  <button onClick="update()">Increase progress by 10%</button>
   <div class="progress">
-    <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-      <span class="hidden" aria-live="polite" id="progressPercent"></span></div>
+    <div id="progressBar" aria-live="polite" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+      aria-valuemax="100"><span class="hidden" id="hiddenLabel">0%</span></div>
   </div>
-  
+
 
   <script>
-    const progressBar = document.getElementById("progress");
-    const myButton = document.getElementById("increaseButton");
-    myButton.addEventListener('click', function () {
-      let ariaValueNow = progressBar.getAttribute("aria-valuenow");
+    const progressBar = document.getElementById("progressBar");
+    let ariaValueNow = progressBar.getAttribute("aria-valuenow");
+    const hiddenLabel = document.getElementById("hiddenLabel");
+
+    function update() {
       ariaValueNow = parseInt(ariaValueNow, 10);
       ariaValueNow += 10;
       progressBar.setAttribute("aria-valuenow", ariaValueNow)
-      let myWidth = ariaValueNow.toString();
-      let myWidthString = "width: " + myWidth + "%";
+      let myWidthString = "width: " + ariaValueNow + "%";
       progressBar.setAttribute("style", myWidthString);
-      const myLabel = document.getElementById("progressPercent");
-      myLabel.innerHTML = ariaValueNow;
-    })
+
+      hiddenLabel.innerHTML = ariaValueNow + "%";
+    }
   </script>
 
 </body>
