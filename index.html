@@ -5,6 +5,7 @@
   <style>
     .progress {
       background-color: #e9ecef;
+      border: 3px solid black;
       display: flex;
       height: 1rem;
       overflow: hidden;
@@ -55,7 +56,7 @@
     function update() {
       ariaValueNow = parseInt(ariaValueNow, 10);
       ariaValueNow += 10;
-      progressBar.setAttribute("aria-valuenow", ariaValueNow)
+      progressBar.setAttribute("aria-valuenow", ariaValueNow);
       let myWidthString = "width: " + ariaValueNow + "%";
       progressBar.setAttribute("style", myWidthString);
 
