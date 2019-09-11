@@ -23,7 +23,7 @@
       background-color: black;
     }
 
-    .hidden {
+    .sr-only {
       position: absolute;
       left: -10000px;
       top: auto;
@@ -49,28 +49,84 @@
 
 <body>
 
-
+<main>
+<h1>Accessible Progress Bars Example - tested with NVDA + Firefox</h1>
+<h2>Using a hidden label (screen-reader only) of "Tasks Completed: x%"</h2>
   <div class="progress">
-    <div id="progressBar" aria-live="polite" aria-label="Tasks Completed" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
-      aria-valuemax="100"><span class="hidden" id="hiddenLabel">0%</span></div>
+    <div id="progressBar1" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+      aria-valuemax="100"><span class="sr-only" id="hiddenProgressLabel"></span></div>
   </div>
   <div class="center">
     <button onClick="update()">Increase progress by 10%</button>
   </div>
+  <p>
+    at 10% NVDA + Firefox reads:<br>
+    progress bar<br>
+    10
+  </p>
 
+  <h2>Progress bar with a visual label and a hidden/screen-reader only label of "Tasks Completed"</h2>
+  <div class="progress">
+    <div id="progressBar2" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+      aria-valuemax="100"><div class="sr-only">Tasks Completed</div><span id="progressLabel"></span></div>
+  </div>
+  <div class="center">
+    <button onClick="updateWithLabel()">Increase progress by 10%</button>
+  </div>
+  <p>
+    labels updated dynamically are read by screen readers if they are not hidden with the sr-only class<br>
+    at 10% NVDA + Firefox reads:<br>
+    progress bar<br>
+    10%
+  </p>
+  <h2>Progress bar with a visual label and an aria-label of "Tasks Completed"</h2>
+  <div class="progress">
+    <div id="progressBar3" class="progress-bar" aria-label="Tasks Completed" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+      aria-valuemax="100"><span id="progressLabelForAria"></span></div>
+  </div>
+  <div class="center">
+    <button onClick="updateWithAriaLabel()">Increase progress by 10%</button>
+  </div>
+  <p>
+    at 10% NVDA + Firefox reads:<br>
+    Tasks Completed progress bar<br>
+    10%
+  </p>
+</main>
   <script>
-    const progressBar = document.getElementById("progressBar");
-    let ariaValueNow = progressBar.getAttribute("aria-valuenow");
-    const hiddenLabel = document.getElementById("hiddenLabel");
 
     function update() {
+      const progressBar1 = document.getElementById("progressBar1");
+      let ariaValueNow = progressBar1.getAttribute("aria-valuenow");
+      const hiddenProgressLabel = document.getElementById("hiddenProgressLabel");
       ariaValueNow = parseInt(ariaValueNow, 10);
       ariaValueNow += 10;
-      progressBar.setAttribute("aria-valuenow", ariaValueNow);
+      progressBar1.setAttribute("aria-valuenow", ariaValueNow);
       let myWidthString = "width: " + ariaValueNow + "%";
-      progressBar.setAttribute("style", myWidthString);
-
-      hiddenLabel.innerHTML = ariaValueNow + "%";
+      progressBar1.setAttribute("style", myWidthString);
+      hiddenProgressLabel.innerHTML = "Tasks Completed: " + ariaValueNow + "%";
+    }
+    function updateWithLabel(){
+      const progressBar2 = document.getElementById("progressBar2");
+      let ariaValueNow = progressBar2.getAttribute("aria-valuenow");
+      const progressLabel = document.getElementById("progressLabel");
+      ariaValueNow = parseInt(ariaValueNow, 10);
+      ariaValueNow += 10;
+      progressBar2.setAttribute("aria-valuenow", ariaValueNow);
+      let myWidthString = "width: " + ariaValueNow + "%";
+      progressBar2.setAttribute("style", myWidthString);
+      progressLabel.innerHTML = ariaValueNow + "%";
+    }
+    function updateWithAriaLabel(){
+      const progressBar3 = document.getElementById("progressBar3");
+      let ariaValueNow = progressBar3.getAttribute("aria-valuenow");
+      const progressLabelForAria = document.getElementById("progressLabelForAria");
+      ariaValueNow = parseInt(ariaValueNow, 10);
+      ariaValueNow += 10;
+      progressBar3.setAttribute("aria-valuenow", ariaValueNow);
+      let myWidthString = "width: " + ariaValueNow + "%";
+      progressBar3.setAttribute("style", myWidthString);
+      progressLabelForAria.innerHTML = ariaValueNow + "%";
     }
   </script>
 
