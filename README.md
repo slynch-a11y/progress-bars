@@ -7,3 +7,7 @@ An example of accessible progress bars and using aria-live to update the progres
 * [OAA A11y Examples: Progress Bar](http://oaa-accessibility.org/examplep/progressbar1/)
 * [Scott O'Hara: Styled Progress Bar](https://scottaohara.github.io/a11y_styled_form_controls/src/progress-bar/)
 * [ARIA 1.1 Roles: Progress Bar](https://www.w3.org/TR/wai-aria-1.1/#progressbar)
+
+## Screen Reader Testing
+NVDA and Chrome: the ARIA live does not announce the updates
+NVDA and Firefox: works well
